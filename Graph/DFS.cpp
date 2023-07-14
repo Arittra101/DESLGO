@@ -16,19 +16,20 @@ lli i,j;
 #define R_SORT(v) sort(v.begin(),v.end(),greater<lli>());
 #define en "\n"
 const lli N = 1e3+10;
-vi visite(10,0);
+vi visite(N,0);
 vector<lli>graph[N];
 
-lli DFS(lli node)
+void DFS(lli node)
 {
-    if(visite[node]==1)
-    {
-        return node;
-    }
+//    if(visite[node]==1)
+//    {
+//        return ;
+//    }
     cout<<node<<" ";
     visite[node]=1;
     for(auto it :  graph[node])
     {
+        if(visite[it]==0);
         DFS(it);
     }
 
@@ -45,7 +46,7 @@ void solve()
         lli node1,node2;
         cin>>node1>>node2;
         graph[node1].pb(node2);
-        // graph[node2].pb(node1);
+        graph[node2].pb(node1);
         //cout<<node1<<node2<<endl;
     }
 
