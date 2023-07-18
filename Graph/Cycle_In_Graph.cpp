@@ -19,27 +19,34 @@ const lli N = 1e5+10;
 
 vector<lli>graph[N];
 lli visited[N];
-vector<lli>current_cc;
 
-void DFS(lli node)
+bool DFS(lli node,lli par)
 {
 //    if(visited[node]) return node;
 
 
+
     // cout<<node<<" ";
+    lli loopIngraph = false;
     visited[node]=1;
-    for(auto it :  graph[node])
+    for(auto child :  graph[node])
     {
-        if(visited[it]==0)
-            DFS(it);
+        if(visited[child] && child ==par) continue;   // check if visited -> continue
+
+        else if(visited[child] && child!=par) return true;  //yes there is a loop
+
+
+        //if(visited[child]!=0)
+        loopIngraph|=DFS(child,node);
     }
 
-
+    return loopIngraph;
 }
 
 void solve()
 {
 
+    cout<<"Enter the number of node and edge"<<endl;
     lli node,edge;
     cin>>node>>edge;
 
@@ -52,16 +59,19 @@ void solve()
         //cout<<node1<<node2<<endl;
     }
     lli component=0;
+    lli loopIngraph = false;
     for(i=1; i<=node; i++)
     {
         if(!visited[i])
         {
             component++;
-            DFS(i);
+            loopIngraph|=DFS(i,0);
         }
     }
-    cout<<component<<endl;
+    if(loopIngraph)
+        cout<<"there is a cycle"<<endl;
 
+    else cout<<"There is no loop"<<endl;
 
 //    for(i=0; i<edge; i++)
 //    {
