@@ -60,7 +60,7 @@ void solve()
     }
     lli component=0;
     lli loopIngraph = false;
-    for(i=1; i<=node; i++)
+    for(i=0; i<node; i++)
     {
         if(!visited[i])
         {
